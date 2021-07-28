@@ -1,17 +1,64 @@
+// display the date in the header
 var currentDay = moment().format("dddd, MMMM Do");
 
 $("#currentDay").text(currentDay);
 
-var hour9 = moment().hour(9);
-var hour10 = moment().hour(10);
-var hour11 = moment().hour(11);
-var hour12 = moment().hour(12);
-var hour13 = moment().hour(13);
-var hour14 = moment().hour(14);
-var hour15 = moment().hour(15);
-var hour16 = moment().hour(16);
-var hour17 = moment().hour(17);
-var hour18 = moment().hour(18);
 
+var inputEvent = $('.description');
+var saveEvent = $('.saveBtn');
+var time = $('.time-block');
+var hourEl = $('.hour')
 
+// function to save input into local storage
+function eventEntered (event) {
+  event.preventDefault();
 
+  var saved = $(this).parent().find('.description').first().val();
+  console.log(saved);
+  localStorage.setItem('description', saved);
+}
+saveEvent.on('click', eventEntered);
+
+var currentHour = moment().hour()
+console.log(currentHour);
+// function to change textarea into diffrent color base on past, present, future
+function colorCode(){
+
+for (var index = 0; index < time.length; index ++) {
+  var element = $(time[index]);
+  var now = element.attr('data-time')
+  var textBox = $('textarea')
+  // console.log(element)
+  // console.log(time)
+  if (currentHour === now) {
+    textBox.addClass('present')
+  }
+  else if (currentHour > now) {
+    textBox.addClass('past')
+  }
+  else (currentHour < now) 
+    textBox.addClass('future')
+  
+}
+}
+colorCode();
+// var d = new Date();
+// var hours = d.getHours();
+// function checkPresent() {
+
+//   for (time = 6; time < 23; time++) {
+//     var timeblock = $("#" + time);
+//     console.log($("#" + time))
+
+//     if (time == hours) {
+//       timeblock.addClass("present")
+//     } else if (time < hours) {
+//       timeblock.addClass("past")
+//     } else {
+//       timeblock.addClass("future")
+//     }
+//     $("#" + time).val(localStorage.getItem("" + time));
+
+//   }
+// }
+// checkPresent();
